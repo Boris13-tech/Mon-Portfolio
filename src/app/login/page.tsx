@@ -55,6 +55,8 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               className="bg-black/5 dark:bg-white/5 border border-line rounded-lg px-4 py-3 text-ink outline-none focus:border-[#7cc4ff]/50 transition-colors"
               placeholder="••••••••"
+              required
+              minLength={8}
             />
           </div>
           <button 
