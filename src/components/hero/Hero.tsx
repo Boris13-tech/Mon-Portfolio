@@ -99,8 +99,8 @@ export function Hero() {
 
         {/* ✨ Right column – 3D floating certification badges ✨ */}
         <div
-          className="hero-3d-col mt-12 lg:mt-0 scale-75 sm:scale-90 lg:scale-100 origin-center lg:origin-right"
-          style={{ position: "relative", height: "460px", perspective: "1400px", perspectiveOrigin: "50% 50%" }}
+          className="hero-3d-col mt-12 lg:mt-0 relative w-[450px] left-1/2 -translate-x-1/2 lg:w-auto lg:left-auto lg:translate-x-0 scale-[0.70] sm:scale-90 lg:scale-100 origin-top lg:origin-right"
+          style={{ height: "460px", perspective: "1400px", perspectiveOrigin: "50% 50%" }}
           aria-hidden
         >
           {/* Portrait Background */}
