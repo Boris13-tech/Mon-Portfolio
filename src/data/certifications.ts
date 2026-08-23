@@ -31,7 +31,7 @@ export const certifications: Certification[] = [
   { code: "AZ-700", name: "Azure Networking",                domain: "azure",    status: "needs-verification" },
   { code: "SC-100", name: "Cybersecurity Architect",         domain: "security", status: "needs-verification" },
   { code: "SC-300", name: "Identity & Access Administrator", domain: "identity", status: "needs-verification" },
-  { code: "AI-102", name: "AI Engineer",                     domain: "ai",       status: "needs-verification" },
+  { code: "AI-103", name: "AI Engineer",                     domain: "ai",       status: "needs-verification" },
   { code: "AI-900", name: "AI Fundamentals",                 domain: "ai",       status: "planned" },
   { code: "DP-100", name: "Machine Learning",                domain: "ai",       status: "planned" },
   { code: "DP-203", name: "Data Engineer",                   domain: "ai",       status: "planned" },

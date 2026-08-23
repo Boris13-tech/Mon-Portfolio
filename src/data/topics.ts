@@ -8,7 +8,7 @@ export const topics: Topic[] = [
   { slug: "az-400",            title: "AZ-400 DevOps Engineer",         category: "azure", blurb: "Cycle DevOps sur Azure." },
   { slug: "az-700",            title: "AZ-700 Azure Networking",        category: "azure", blurb: "Réseau Azure en profondeur." },
   { slug: "landing-zones",     title: "Landing Zones et FinOps",        category: "azure", blurb: "Fonder un environnement Azure sain." },
-  { slug: "ai-102",            title: "AI-102 AI Engineer",             category: "ai",    blurb: "Ingénierie de solutions IA sur Azure." },
+  { slug: "AI-103",            title: "AI-103 AI Engineer",             category: "ai",    blurb: "Ingénierie de solutions IA sur Azure." },
   { slug: "azure-openai",      title: "Azure OpenAI et GPT",            category: "ai",    blurb: "Utiliser les modèles hébergés sur Azure." },
   { slug: "copilot-studio",    title: "Copilot Studio",                 category: "ai",    blurb: "Concevoir des copilots métiers." },
   { slug: "ia-secure",         title: "Sécuriser l'IA générative",      category: "ai",    blurb: "Design patterns de sécurité pour la GenAI." },

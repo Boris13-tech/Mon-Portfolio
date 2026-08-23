@@ -10,7 +10,7 @@ export const formationsData = [
 
   // Intelligence Artificielle
   { slug: "ai-900", label: "AI Fundamentals (AI-900)", category: "Intelligence Artificielle", color: "#c4a4ff" },
-  { slug: "ai-102", label: "AI Engineer (AI-102)", category: "Intelligence Artificielle", color: "#c4a4ff" },
+  { slug: "ai-103", label: "AI Engineer (AI-103)", category: "Intelligence Artificielle", color: "#c4a4ff" },
   { slug: "azure-openai", label: "Azure OpenAI et GPT", category: "Intelligence Artificielle", color: "#c4a4ff" },
   { slug: "copilot-studio", label: "Copilot Studio", category: "Intelligence Artificielle", color: "#c4a4ff" },
   { slug: "dp-100", label: "Machine Learning (DP-100)", category: "Intelligence Artificielle", color: "#c4a4ff" },

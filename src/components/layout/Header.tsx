@@ -49,7 +49,7 @@ export function Header() {
               <div>
                 <div className="font-mono text-[10px] text-[#c4a4ff] tracking-widest uppercase mb-2.5 px-3">Intelligence Artificielle</div>
                 <div className="flex flex-col gap-1">
-                  {[{label:"AI Fundamentals (AI-900)", href:"/formations/ai-900"}, {label:"AI Engineer (AI-102)", href:"/formations/ai-102"}, {label:"Azure OpenAI et GPT", href:"/formations/azure-openai"}, {label:"Copilot Studio", href:"/formations/copilot-studio"}, {label:"Machine Learning (DP-100)", href:"/formations/dp-100"}, {label:"Data Engineer (DP-203)", href:"/formations/dp-203"}, {label:"Sécuriser l'IA générative", href:"/formations/secu-ia"}].map((link) => (
+                  {[{label:"AI Fundamentals (AI-900)", href:"/formations/ai-900"}, {label:"AI Engineer (AI-103)", href:"/formations/AI-103"}, {label:"Azure OpenAI et GPT", href:"/formations/azure-openai"}, {label:"Copilot Studio", href:"/formations/copilot-studio"}, {label:"Machine Learning (DP-100)", href:"/formations/dp-100"}, {label:"Data Engineer (DP-203)", href:"/formations/dp-203"}, {label:"Sécuriser l'IA générative", href:"/formations/secu-ia"}].map((link) => (
                     <Link key={link.label} href={link.href} className="px-3 py-2 rounded-lg text-[13px] text-ink-dim hover:bg-black/5 dark:bg-white/5 hover:text-[#c4a4ff] transition-colors block">
                       {link.label}
                     </Link>

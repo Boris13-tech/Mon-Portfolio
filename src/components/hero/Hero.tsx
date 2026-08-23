@@ -23,7 +23,7 @@ export function Hero() {
               style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#22c55e", boxShadow: "0 0 8px #22c55e", display: "inline-block" }}
               aria-hidden
             />
-            <span>Boris Ohandja · Basé à Lyon · Disponible pour missions</span>
+            <span>Boris Ohandja · Basé en Europe · Disponible pour missions</span>
           </div>
 
           {/* Overline label */}
@@ -32,7 +32,7 @@ export function Hero() {
             color: "rgba(230,232,235,.55)", letterSpacing: ".15em",
             textTransform: "uppercase", marginBottom: "18px",
           }}>
-            Cloud &amp; Cybersecurity Architect
+            Cloud &amp; Cybersecurity et IA Architect
           </div>
 
           {/* H1 — exact text from prototype */}
@@ -170,7 +170,7 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Card 3 — AI-102 (background, drift-3) */}
+          {/* Card 3 — AI-103 (background, drift-3) */}
           <div
             className="panel drift-3"
             style={{
@@ -192,12 +192,43 @@ export function Hero() {
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,.3)", color: "#fff",
               }}>AI</div>
               <div>
-                <div style={{ fontFamily: "var(--font-mono)", fontSize: "11px", color: "rgba(230,232,235,.7)" }}>AI-102</div>
+                <div style={{ fontFamily: "var(--font-mono)", fontSize: "11px", color: "rgba(230,232,235,.7)" }}>AI-103</div>
                 <div style={{ fontSize: "11px", color: "rgba(230,232,235,.5)" }}>Associate · 2024</div>
               </div>
               <div style={{ marginLeft: "auto", fontFamily: "var(--font-mono)", fontSize: "10px", color: "rgba(230,232,235,.4)" }}>
                 +4 autres
               </div>
+            </div>
+          </div>
+
+          {/* Card 4 — AZ-400 (left side, drift) */}
+          <div
+            className="panel drift-2"
+            style={{
+              position: "absolute", top: "260px", left: "-20px", width: "260px",
+              padding: "18px", borderRadius: "16px",
+              background: "linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.01))",
+              border: "1px solid rgba(255,255,255,.1)",
+              transform: "rotateY(10deg) rotateX(5deg) translateZ(10px)",
+              boxShadow: "-10px 20px 40px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.06)",
+              zIndex: 2,
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
+              <div style={{
+                width: "32px", height: "32px", borderRadius: "8px",
+                background: "linear-gradient(135deg,#f97316,#fbb774)",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                fontFamily: "var(--font-mono)", fontWeight: 700, fontSize: "10px",
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,.3)", color: "#fff",
+              }}>AZ</div>
+              <div>
+                <div style={{ fontFamily: "var(--font-mono)", fontSize: "11px", color: "rgba(230,232,235,.7)" }}>AZ-400</div>
+                <div style={{ fontSize: "11px", color: "rgba(230,232,235,.5)" }}>Expert 2024</div>
+              </div>
+            </div>
+            <div style={{ fontFamily: "var(--font-display)", fontSize: "15px", lineHeight: 1.25, letterSpacing: "-.01em" }}>
+              DevOps Engineer Expert
             </div>
           </div>
 

@@ -7,7 +7,7 @@ import { certifications } from "@/data/certifications";
 export const metadata: Metadata = { title: "Certifications", description: "Sept badges, sept étapes." };
 
 export default function CertificationsPage() {
-  const featuredCodes = ["SC-100", "AZ-305", "AZ-400", "AZ-104", "AZ-700", "SC-300", "AI-102"];
+  const featuredCodes = ["SC-100", "AZ-305", "AZ-400", "AZ-104", "AZ-700", "SC-300", "AI-103"];
   const featuredCerts = featuredCodes
     .map(code => certifications.find(c => c.code === code))
     .filter((c): c is NonNullable<typeof c> => Boolean(c));
