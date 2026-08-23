@@ -12,18 +12,15 @@ export async function login(formData: FormData) {
     password: formData.get("password") as string,
   };
 
-  const { error } = await supabase.auth.signInWithPassword(data);
+  const { data: authData, error } = await supabase.auth.signInWithPassword(data);
 
   if (error) {
     redirect("/login?message=Identifiants invalides");
   }
-
-  // Vérifier l'utilisateur
-  const { data: { user } } = await supabase.auth.getUser();
   
   revalidatePath("/", "layout");
   
-  if (user?.email === "legrandborisohandjaedimo@gmail.com") {
+  if (authData.user?.email === "legrandborisohandjaedimo@gmail.com") {
     redirect("/admin");
   } else {
     redirect("/portal");

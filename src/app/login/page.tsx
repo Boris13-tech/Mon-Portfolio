@@ -46,7 +46,7 @@ export default function LoginPage({
               name="email"
               type="email" 
               className="bg-black/5 dark:bg-white/5 border border-line rounded-lg px-4 py-3 text-ink outline-none focus:border-[#7cc4ff]/50 transition-colors"
-              placeholder="ex: legrandborisohandjaedimo@gmail.com"
+              placeholder="votre.adresse@email.com"
               required
             />
           </div>
