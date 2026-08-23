@@ -81,7 +81,7 @@ export function Header() {
           </div>
 
           <Link href="/projects" className="px-3.5 py-2 rounded-full text-ink-dim hover:bg-black/5 dark:bg-white/5 transition-colors text-[13px]">Outils</Link>
-          <Link href="/speaking" className="px-3.5 py-2 rounded-full text-ink-dim hover:bg-black/5 dark:bg-white/5 transition-colors text-[13px]">Événements</Link>
+          <Link href="/events" className="px-3.5 py-2 rounded-full text-ink-dim hover:bg-black/5 dark:bg-white/5 transition-colors text-[13px]">Événements</Link>
           <Link href="/speaking" className="px-3.5 py-2 rounded-full text-ink-dim hover:bg-black/5 dark:bg-white/5 transition-colors text-[13px]">Speaking</Link>
 
           {/* Communauté Dropdown */}
