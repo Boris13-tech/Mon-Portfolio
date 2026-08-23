@@ -10,7 +10,7 @@ export async function sendNewsletter(formData: FormData) {
   const { data: { user } } = await supabase.auth.getUser();
 
   // Sécurité supplémentaire : vérifier que c'est bien l'admin
-  if (!user || user.email !== "boris.ohandja@gmail.com") {
+  if (!user || user.email !== "legrandborisohandjaedimo@gmail.com") {
     return { error: "Non autorisé" };
   }
 
@@ -24,7 +24,7 @@ export async function sendNewsletter(formData: FormData) {
     
     const { data, error } = await resend.emails.send({
       from: "Newsletter Portfolio <onboarding@resend.dev>",
-      to: ["boris.ohandja@gmail.com"], // Change this when you have a verified domain
+      to: ["legrandborisohandjaedimo@gmail.com"], // Change this when you have a verified domain
       subject: subject,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">

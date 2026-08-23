@@ -23,7 +23,7 @@ export async function login(formData: FormData) {
   
   revalidatePath("/", "layout");
   
-  if (user?.email === "boris.ohandja@gmail.com") {
+  if (user?.email === "legrandborisohandjaedimo@gmail.com") {
     redirect("/admin");
   } else {
     redirect("/portal");

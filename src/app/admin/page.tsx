@@ -10,7 +10,7 @@ export default async function AdminPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user || user.email !== "boris.ohandja@gmail.com") {
+  if (!user || user.email !== "legrandborisohandjaedimo@gmail.com") {
     redirect("/portal");
   }
 
