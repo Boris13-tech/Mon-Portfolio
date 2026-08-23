@@ -25,7 +25,7 @@ export default function LoginPage({
           </div>
         )}
         
-        <form className="flex flex-col gap-5 relative z-10">
+        <form action={login} className="flex flex-col gap-5 relative z-10">
           <div className="flex flex-col gap-2">
             <label className="text-sm text-ink-dim font-medium" htmlFor="email">Adresse Email</label>
             <input 
