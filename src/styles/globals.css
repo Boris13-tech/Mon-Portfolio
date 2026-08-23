@@ -1,4 +1,4 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
 
 @theme {
   --color-bg: #0a0c10;
@@ -71,6 +71,18 @@
 }
 
 :root { color-scheme: dark; }
+
+.light {
+  --color-bg: #f8fafc;
+  --color-surface: #ffffff;
+  --color-ink: #0f172a;
+  --color-ink-dim: #334155;
+  --color-ink-mute: #64748b;
+  --color-ink-inverse: #ffffff;
+  --color-line: rgba(0,0,0,0.1);
+  color-scheme: light;
+}
+
 html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 body { background: var(--color-bg); color: var(--color-ink); }
 a { color: var(--color-accent-azure); }
@@ -90,4 +102,70 @@ a:hover { color: var(--color-accent-azure-strong); }
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ── Hero 2-column responsive grid ─────────────────────── */
+.hero-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 96px 28px 72px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: center;
+}
+@media (max-width: 1023px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    padding: 64px 20px 48px;
+  }
+  .hero-3d-col {
+    display: none;
+  }
+}
+
+/* ── Panel 3D (source: prototype .panel) ───────────────── */
+.panel {
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(.2,.8,.2,1);
+}
+.panel:hover {
+  transform: translateZ(40px) rotateY(0deg) rotateX(0deg) !important;
+}
+
+/* ── Drift float animations ─────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotateX(-2deg); }
+  50%       { transform: translateY(-8px) rotateX(2deg); }
+}
+.drift   { animation: float 8s  ease-in-out infinite; }
+.drift-2 { animation: float 10s ease-in-out infinite -3s; }
+.drift-3 { animation: float 12s ease-in-out infinite -6s; }
+
+/* ── Status dot pulse ───────────────────────────────────── */
+@keyframes pulse {
+  0%, 100% { opacity: .6; }
+  50%       { opacity: 1; }
+}
+.status-dot { animation: pulse 2s ease-in-out infinite; }
+
+/* ── Project cards responsive ───────────────────────────── */
+@media (max-width: 1023px) {
+  .panel[style*="grid-template-columns: 1.1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  .panel[style*="grid-template-columns: 1.1fr"] > div[style*="order: 1"],
+  .panel[style*="grid-template-columns: 1.1fr"] > div[style*="order: 2"] {
+    order: unset !important;
+  }
+}
+
+.grid-floor {
+  position:fixed; inset:0; pointer-events:none; z-index:0;
+  background-image:linear-gradient(rgba(124,196,255,.04) 1px, transparent 1px),linear-gradient(90deg, rgba(124,196,255,.04) 1px, transparent 1px);
+  background-size:60px 60px;
+  transform:perspective(800px) rotateX(65deg) translateY(30vh) scale(2.5);
+  transform-origin:center bottom;
+  mask-image:linear-gradient(to bottom, transparent 0%, #000 60%, transparent 100%);
+  opacity:.25;
 }

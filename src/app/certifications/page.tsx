@@ -2,19 +2,21 @@ import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { CertGroup } from "@/components/certifications/CertGroup";
-import { certifications, certDomains } from "@/data/certifications";
+import { certifications } from "@/data/certifications";
 
 export const metadata: Metadata = { title: "Certifications", description: "Sept badges, sept étapes." };
 
 export default function CertificationsPage() {
+  const featuredCodes = ["SC-100", "AZ-305", "AZ-400", "AZ-104", "AZ-700", "SC-300", "AI-102"];
+  const featuredCerts = featuredCodes
+    .map(code => certifications.find(c => c.code === code))
+    .filter((c): c is NonNullable<typeof c> => Boolean(c));
+
   return (
-    <Container className="py-24">
+    <Container className="py-24 scene">
       <PageHeader eyebrow="Certifications" title="Sept badges, sept étapes." />
-      <p className="mt-6 max-w-2xl text-ink-dim">Statuts affichés tels quels. Aucune certification n'est marquée <code>earned</code> tant qu'elle n'est pas vérifiée par Boris.</p>
-      <div className="mt-16 space-y-16">
-        {certDomains.map((d) => (
-          <CertGroup key={d.id} domain={d} items={certifications.filter((c) => c.domain === d.id)} />
-        ))}
+      <div className="mt-16">
+        <CertGroup items={featuredCerts} />
       </div>
     </Container>
   );

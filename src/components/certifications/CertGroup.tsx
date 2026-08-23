@@ -1,24 +1,92 @@
-import type { CertDomain, Certification } from "@/data/certifications";
-const statusLabel: Record<Certification["status"], string> = {
-  earned: "Obtenue", "in-progress": "En cours", planned: "Planifiée", "needs-verification": "À vérifier",
-};
-export function CertGroup({ domain, items }: { domain: CertDomain; items: Certification[] }) {
+import type { Certification } from "@/data/certifications";
+import { certVisuals } from "./certVisuals";
+
+export function CertGroup({ items }: { items: Certification[] }) {
   if (items.length === 0) return null;
+
   return (
-    <section>
-      <h2 className="font-display text-h2">{domain.label}</h2>
-      <ul className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {items.map((c) => (
-          <li key={c.code} className="rounded-lg border border-line bg-surface p-5">
-            <div className="flex items-baseline justify-between gap-2">
-              <div className="font-mono text-sm text-ink-mute">{c.code}</div>
-              <div className="text-[11px] uppercase tracking-widest text-ink-mute">{statusLabel[c.status]}</div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {items.map((c) => {
+        const visual = certVisuals[c.code];
+        if (!visual) return null; // Only render those with a visual config
+
+        return (
+          <div
+            key={c.code}
+            className="panel drift p-6 rounded-2xl flex flex-col items-center text-center shadow-lg transition-transform hover:z-10"
+            style={{
+              background: `linear-gradient(160deg, ${visual.color}14, rgba(255,255,255,0.01))`,
+              border: `1px solid ${visual.color}59`,
+              transform: visual.transform,
+              boxShadow: "0 20px 45px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
+            }}
+          >
+            <div
+              className="w-[120px] h-[120px] mb-3 flex items-center justify-center transition-all"
+              style={{ filter: `drop-shadow(0 10px 20px ${visual.color}59)` }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={visual.src}
+                alt={`${c.code} badge`}
+                className="w-full h-full object-contain"
+              />
             </div>
-            <div className="mt-2 font-display text-h3">{c.name}</div>
-            {c.credentialUrl && <a href={c.credentialUrl} target="_blank" rel="noreferrer" className="mt-3 inline-block text-xs">Preuve →</a>}
-          </li>
-        ))}
-      </ul>
-    </section>
+
+            <div
+              className="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest font-mono mb-2.5"
+              style={{
+                background: `${visual.color}14`,
+                border: `1px solid ${visual.color}59`,
+                color: visual.color,
+              }}
+            >
+              {visual.level}
+            </div>
+
+            <div
+              className="font-mono text-xs mb-1"
+              style={{ color: visual.color }}
+            >
+              {c.code}
+            </div>
+
+            <div className="font-display text-[17px] leading-tight tracking-tight mb-2">
+              {c.name}
+            </div>
+
+            <div className="text-xs text-ink-mute">
+              {c.earnedOn ? `Obtenue en ${c.earnedOn.substring(0, 4)}` : "Obtenue"}
+            </div>
+          </div>
+        );
+      })}
+
+      {/* 8th Card: AZ-500 En préparation */}
+      <div
+        className="panel drift p-6 rounded-2xl flex flex-col justify-center items-center text-center gap-2.5 min-h-[280px]"
+        style={{
+          background: "linear-gradient(160deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01))",
+          border: "1px dashed rgba(255,255,255,0.18)",
+        }}
+      >
+        <div className="w-16 h-16 rounded-full flex items-center justify-center font-display text-[28px]"
+          style={{
+            background: "rgba(124, 196, 255, 0.08)",
+            border: "1px dashed rgba(124, 196, 255, 0.3)",
+            color: "rgba(124, 196, 235, 0.5)",
+          }}
+        >
+          +
+        </div>
+        <div className="font-mono text-[11px] text-ink-mute tracking-widest">
+          EN PRÉPARATION
+        </div>
+        <div className="font-display text-[17px] text-ink-dim leading-snug">
+          AZ-500<br />
+          <span className="text-[13px] text-ink-mute/70">Azure Security Engineer</span>
+        </div>
+      </div>
+    </div>
   );
 }
