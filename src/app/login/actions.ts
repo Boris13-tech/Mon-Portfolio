@@ -38,14 +38,20 @@ export async function signup(formData: FormData) {
     password: formData.get("password") as string,
   };
 
-  const { error } = await supabase.auth.signUp(data);
+  const origin = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
+  const { error } = await supabase.auth.signUp({
+    ...data,
+    options: {
+      emailRedirectTo: `${origin}/auth/callback`,
+    },
+  });
 
   if (error) {
-    redirect("/login?message=Erreur lors de la création du compte");
+    redirect("/login?message=Erreur lors de la création du compte: " + error.message);
   }
 
-  revalidatePath("/", "layout");
-  redirect("/portal");
+  redirect("/login?message=Compte créé ! Veuillez vérifier votre boîte mail pour confirmer.");
 }
 
 export async function signout() {

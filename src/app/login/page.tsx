@@ -1,6 +1,7 @@
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { login, signup } from "./actions";
+import Link from "next/link";
 
 export default function LoginPage({
   searchParams,
@@ -39,7 +40,7 @@ export default function LoginPage({
           <div className="flex flex-col gap-2">
             <div className="flex justify-between items-center">
               <label className="text-sm text-ink-dim font-medium" htmlFor="password">Mot de passe</label>
-              <a href="#" className="text-xs text-[#7cc4ff] hover:underline">Oublié ?</a>
+              <Link href="/forgot-password" className="text-xs text-[#7cc4ff] hover:underline">Oublié ?</Link>
             </div>
             <input 
               id="password"
