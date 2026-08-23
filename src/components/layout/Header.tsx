@@ -117,6 +117,9 @@ export function Header() {
       <div className="flex items-center gap-2.5 flex-wrap">
         <SearchWidget />
         <ThemeToggle />
+        <Link href="/login" className="px-4 py-1.5 bg-ink text-bg text-[13px] font-semibold rounded-full hover:opacity-90 transition-opacity ml-1 shadow-sm">
+          Connexion
+        </Link>
       </div>
     </header>
     
