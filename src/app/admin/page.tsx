@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { signout } from "@/app/login/actions";
+import NewsletterForm from "./NewsletterForm";
 
 export default async function AdminPage() {
   const supabase = await createClient();
@@ -34,17 +35,14 @@ export default async function AdminPage() {
             <h3 className="text-gray-900 dark:text-white font-medium mb-1">Projets</h3>
             <p className="text-xs text-ink-mute">Ajouter un cas client</p>
           </div>
-          <div className="panel p-5 rounded-xl border border-line bg-transparent hover:bg-surface/30 cursor-pointer transition-colors">
-            <h3 className="text-gray-900 dark:text-white font-medium mb-1">Articles</h3>
-            <p className="text-xs text-ink-mute">Rédiger un nouvel article</p>
-          </div>
         </div>
 
-        <div className="md:col-span-2">
+        <div className="md:col-span-2 flex flex-col gap-8">
+          {/* Section Édition */}
           <div className="panel p-6 rounded-2xl border border-line bg-surface/10">
             <h2 className="text-xl font-display text-gray-900 dark:text-white mb-6">Éditer les formations</h2>
             <div className="flex flex-col gap-2">
-              {formationsData.map((f) => (
+              {formationsData.slice(0, 3).map((f) => (
                 <div key={f.slug} className="flex items-center justify-between p-4 border border-black/5 dark:border-white/5 rounded-xl hover:bg-black/5 dark:bg-white/5 transition-colors">
                   <div>
                     <div className="text-sm font-medium text-gray-900 dark:text-white">{f.label}</div>
@@ -55,7 +53,16 @@ export default async function AdminPage() {
                   </button>
                 </div>
               ))}
+              <div className="text-center mt-2"><span className="text-xs text-ink-mute">... et {formationsData.length - 3} autres</span></div>
             </div>
+          </div>
+
+          {/* Section Newsletter */}
+          <div className="panel p-6 rounded-2xl border border-line bg-surface/30 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-[#c4a4ff]/10 blur-3xl rounded-full pointer-events-none" />
+            <h2 className="text-xl font-display text-gray-900 dark:text-white mb-2">Envoyer une Newsletter</h2>
+            <p className="text-sm text-ink-mute mb-6">Rédigez un message qui sera envoyé automatiquement à tous vos abonnés.</p>
+            <NewsletterForm />
           </div>
         </div>
       </div>
