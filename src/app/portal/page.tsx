@@ -1,15 +1,20 @@
-"use client";
-
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
-import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { BookOpen, Clock, ChevronRight } from "lucide-react";
-import { Suspense } from "react";
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
+import { signout } from "@/app/login/actions";
 
-function PortalContent() {
-  const searchParams = useSearchParams();
-  const email = searchParams.get("email") || "Abonné(e)";
+async function PortalContent() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  const email = user.email || "Abonné(e)";
 
   const recentReads = [
     { title: "Landing Zones et FinOps", category: "Azure Cloud", date: "Il y a 2 jours", url: "/formations/landing-zones" },
@@ -21,9 +26,11 @@ function PortalContent() {
     <Container className="py-24">
       <div className="flex justify-between items-end mb-12 flex-wrap gap-4">
         <PageHeader eyebrow="Espace Membre" title={`Bonjour, ${email.split('@')[0]}`} />
-        <Link href="/" className="bg-black/5 dark:bg-white/5 border border-line hover:bg-black/10 dark:hover:bg-white/10 px-4 py-2 rounded-lg text-sm text-ink-mute transition-colors">
-          Se déconnecter
-        </Link>
+        <form action={signout}>
+          <button className="bg-black/5 dark:bg-white/5 border border-line hover:bg-black/10 dark:hover:bg-white/10 px-4 py-2 rounded-lg text-sm text-ink-mute transition-colors">
+            Se déconnecter
+          </button>
+        </form>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -34,7 +41,7 @@ function PortalContent() {
               {email.charAt(0).toUpperCase()}
             </div>
             <h3 className="text-ink font-medium truncate">{email}</h3>
-            <p className="text-xs text-ink-mute mt-1">Membre depuis Janvier 2026</p>
+            <p className="text-xs text-ink-mute mt-1">Membre authentifié</p>
             
             <div className="mt-6 pt-6 border-t border-line">
               <div className="flex items-center gap-3 text-sm text-ink-dim hover:text-[#7cc4ff] cursor-pointer transition-colors mb-3">
@@ -84,9 +91,5 @@ function PortalContent() {
 }
 
 export default function PortalPage() {
-  return (
-    <Suspense fallback={<div className="text-ink-mute p-24 text-center">Chargement de votre espace...</div>}>
-      <PortalContent />
-    </Suspense>
-  );
+  return <PortalContent />;
 }
