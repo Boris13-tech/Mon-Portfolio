@@ -4,33 +4,22 @@ import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { login, signup } from "./actions";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function LoginPage({
   searchParams,
 }: {
   searchParams?: { message?: string };
 }) {
+  const formRef = useRef<HTMLFormElement>(null);
   const [loading, setLoading] = useState<"login" | "signup" | null>(null);
 
-  const handleAction = async (e: React.MouseEvent<HTMLButtonElement>, actionFunc: Function, type: "login" | "signup") => {
-    // Prevent default to add our own loading state and call the server action
-    const form = e.currentTarget.closest("form");
-    if (form && !form.checkValidity()) {
-      form.reportValidity();
+  const handleClick = (type: "login" | "signup") => {
+    if (formRef.current && !formRef.current.checkValidity()) {
+      // Laisse le navigateur afficher les erreurs natives (HTML5)
       return;
     }
-    
-    e.preventDefault();
     setLoading(type);
-    
-    if (form) {
-      const formData = new FormData(form);
-      await actionFunc(formData);
-    }
-    
-    // Si la page ne redirige pas, on enlève le loading
-    setLoading(null);
   };
 
   return (
@@ -49,7 +38,7 @@ export default function LoginPage({
           </div>
         )}
         
-        <form className="flex flex-col gap-5 relative z-10">
+        <form ref={formRef} className="flex flex-col gap-5 relative z-10">
           <div className="flex flex-col gap-2">
             <label className="text-sm text-ink-dim font-medium" htmlFor="email">Adresse Email</label>
             <input 
@@ -78,16 +67,16 @@ export default function LoginPage({
           </div>
           <div className="flex gap-3 mt-4">
             <button 
-              type="submit"
-              onClick={(e) => handleAction(e, login, "login")}
+              formAction={login}
+              onClick={() => handleClick("login")}
               disabled={loading !== null}
               className="flex-1 bg-[#7cc4ff] text-bg hover:bg-[#7cc4ff]/90 px-4 py-3 rounded-lg font-medium transition-colors shadow-sm disabled:opacity-50"
             >
               {loading === "login" ? "..." : "Se connecter"}
             </button>
             <button 
-              type="button"
-              onClick={(e) => handleAction(e, signup, "signup")}
+              formAction={signup}
+              onClick={() => handleClick("signup")}
               disabled={loading !== null}
               className="flex-1 bg-black/5 dark:bg-white/5 text-ink hover:bg-black/10 dark:hover:bg-white/10 px-4 py-3 rounded-lg font-medium transition-colors disabled:opacity-50"
             >
