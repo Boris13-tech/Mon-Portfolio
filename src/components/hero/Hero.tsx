@@ -97,14 +97,14 @@ export function Hero() {
           </div>
         </div>
 
-        {/* ── Right column — 3D floating certification badges ── */}
+        {/* ✨ Right column – 3D floating certification badges ✨ */}
         <div
-          className="hero-3d-col"
+          className="hero-3d-col mt-12 lg:mt-0 scale-75 sm:scale-90 lg:scale-100 origin-center lg:origin-right"
           style={{ position: "relative", height: "460px", perspective: "1400px", perspectiveOrigin: "50% 50%" }}
           aria-hidden
         >
           {/* Portrait Background */}
-          <div className="absolute top-[-40px] right-[-20px] w-[500px] h-[600px] pointer-events-none z-0" style={{ maskImage: "radial-gradient(ellipse 80% 80% at 50% 40%, black 30%, transparent 80%)", WebkitMaskImage: "radial-gradient(ellipse 80% 80% at 50% 40%, black 30%, transparent 80%)" }}>
+          <div className="absolute top-[-40px] right-[-20px] md:right-0 w-[500px] h-[600px] pointer-events-none z-0" style={{ maskImage: "radial-gradient(ellipse 80% 80% at 50% 40%, black 30%, transparent 80%)", WebkitMaskImage: "radial-gradient(ellipse 80% 80% at 50% 40%, black 30%, transparent 80%)" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/images/boris.jpg" alt="Boris Ohandja" className="w-full h-full object-cover opacity-90" />
           </div>

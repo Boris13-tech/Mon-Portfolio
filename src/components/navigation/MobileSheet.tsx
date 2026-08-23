@@ -16,6 +16,9 @@ export function MobileSheet() {
               <Link key={i.href} href={i.href} onClick={() => setOpen(false)}>{i.label}</Link>
             ))}
             <Link href="/contact" onClick={() => setOpen(false)}>Contact</Link>
+            
+            <div className="h-px bg-line/50 my-2" />
+            <Link href="/login" onClick={() => setOpen(false)} className="text-[#7cc4ff]">Connexion</Link>
           </nav>
         </div>
       )}
