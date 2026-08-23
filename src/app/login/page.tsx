@@ -1,17 +1,41 @@
+"use client";
+
 import { Container } from "@/components/layout/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { login, signup } from "./actions";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function LoginPage({
   searchParams,
 }: {
-  searchParams: { message: string };
+  searchParams?: { message?: string };
 }) {
+  const [loading, setLoading] = useState<"login" | "signup" | null>(null);
+
+  const handleAction = async (e: React.MouseEvent<HTMLButtonElement>, actionFunc: Function, type: "login" | "signup") => {
+    // Prevent default to add our own loading state and call the server action
+    const form = e.currentTarget.closest("form");
+    if (form && !form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    
+    e.preventDefault();
+    setLoading(type);
+    
+    if (form) {
+      const formData = new FormData(form);
+      await actionFunc(formData);
+    }
+    
+    // Si la page ne redirige pas, on enlève le loading
+    setLoading(null);
+  };
+
   return (
     <Container className="py-24 flex justify-center items-center">
       <div className="panel p-10 rounded-2xl border border-line bg-surface/30 w-full max-w-md shadow-glass relative overflow-hidden">
-        {/* Effet lumineux décoratif */}
         <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#7cc4ff]/10 blur-3xl rounded-full pointer-events-none" />
         
         <div className="mb-8">
@@ -20,12 +44,12 @@ export default function LoginPage({
         </div>
 
         {searchParams?.message && (
-          <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 text-red-500 rounded-lg text-sm text-center">
+          <div className="mb-4 p-3 bg-[#7cc4ff]/10 border border-[#7cc4ff]/20 text-[#7cc4ff] rounded-lg text-sm text-center">
             {searchParams.message}
           </div>
         )}
         
-        <form action={login} className="flex flex-col gap-5 relative z-10">
+        <form className="flex flex-col gap-5 relative z-10">
           <div className="flex flex-col gap-2">
             <label className="text-sm text-ink-dim font-medium" htmlFor="email">Adresse Email</label>
             <input 
@@ -54,16 +78,20 @@ export default function LoginPage({
           </div>
           <div className="flex gap-3 mt-4">
             <button 
-              formAction={login}
-              className="flex-1 bg-[#7cc4ff] text-bg hover:bg-[#7cc4ff]/90 px-4 py-3 rounded-lg font-medium transition-colors shadow-sm"
+              type="submit"
+              onClick={(e) => handleAction(e, login, "login")}
+              disabled={loading !== null}
+              className="flex-1 bg-[#7cc4ff] text-bg hover:bg-[#7cc4ff]/90 px-4 py-3 rounded-lg font-medium transition-colors shadow-sm disabled:opacity-50"
             >
-              Se connecter
+              {loading === "login" ? "..." : "Se connecter"}
             </button>
             <button 
-              formAction={signup}
-              className="flex-1 bg-black/5 dark:bg-white/5 text-ink hover:bg-black/10 dark:hover:bg-white/10 px-4 py-3 rounded-lg font-medium transition-colors"
+              type="button"
+              onClick={(e) => handleAction(e, signup, "signup")}
+              disabled={loading !== null}
+              className="flex-1 bg-black/5 dark:bg-white/5 text-ink hover:bg-black/10 dark:hover:bg-white/10 px-4 py-3 rounded-lg font-medium transition-colors disabled:opacity-50"
             >
-              S'inscrire
+              {loading === "signup" ? "..." : "S'inscrire"}
             </button>
           </div>
         </form>
