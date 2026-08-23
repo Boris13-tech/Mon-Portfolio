@@ -1,58 +1,42 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 
-export async function login(formData: FormData) {
+export async function loginAction(email: string, password: string) {
   const supabase = await createClient();
-
-  const data = {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
-  };
-
-  const { data: authData, error } = await supabase.auth.signInWithPassword(data);
+  const { data: authData, error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
-    redirect("/login?message=" + encodeURIComponent("Erreur : " + error.message));
+    return { error: "Erreur : " + error.message };
   }
   
-  revalidatePath("/", "layout");
-  
   if (authData.user?.email?.toLowerCase() === "legrandborisohandjaedimo@gmail.com") {
-    redirect("/admin");
+    return { success: true, redirect: "/admin" };
   } else {
-    redirect("/portal");
+    return { success: true, redirect: "/portal" };
   }
 }
 
-export async function signup(formData: FormData) {
+export async function signupAction(email: string, password: string) {
   const supabase = await createClient();
-
-  const data = {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
-  };
-
-  const origin = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-
+  const origin = process.env.NEXT_PUBLIC_SITE_URL || "https://scaffold-ruddy.vercel.app";
+  
   const { error } = await supabase.auth.signUp({
-    ...data,
+    email,
+    password,
     options: {
       emailRedirectTo: `${origin}/auth/callback`,
     },
   });
 
   if (error) {
-    redirect("/login?message=Erreur lors de la création du compte: " + error.message);
+    return { error: "Erreur lors de la création du compte : " + error.message };
   }
 
-  redirect("/login?message=Compte créé ! Veuillez vérifier votre boîte mail pour confirmer.");
+  return { success: true, message: "Compte créé ! Veuillez vérifier votre boîte mail pour confirmer." };
 }
 
 export async function signout() {
   const supabase = await createClient();
   await supabase.auth.signOut();
-  redirect("/");
 }
