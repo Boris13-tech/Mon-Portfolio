@@ -5,8 +5,9 @@ import { PageHeader } from "@/components/layout/PageHeader";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { BookOpen, Clock, ChevronRight } from "lucide-react";
+import { Suspense } from "react";
 
-export default function PortalPage() {
+function PortalContent() {
   const searchParams = useSearchParams();
   const email = searchParams.get("email") || "Abonné(e)";
 
@@ -79,5 +80,13 @@ export default function PortalPage() {
         </div>
       </div>
     </Container>
+  );
+}
+
+export default function PortalPage() {
+  return (
+    <Suspense fallback={<div className="text-ink-mute p-24 text-center">Chargement de votre espace...</div>}>
+      <PortalContent />
+    </Suspense>
   );
 }
