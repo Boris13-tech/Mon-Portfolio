@@ -1,17 +1,27 @@
-"use client";
-
 import { Container } from "@/components/layout/Container";
 import { formationsData } from "@/data/formations";
 import { PageHeader } from "@/components/layout/PageHeader";
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
+import { signout } from "@/app/login/actions";
 
-export default function AdminPage() {
+export default async function AdminPage() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user || user.email !== "boris.ohandja@gmail.com") {
+    redirect("/portal");
+  }
+
   return (
     <Container className="py-24">
       <div className="flex justify-between items-end mb-12">
         <PageHeader eyebrow="Tableau de bord" title="Gestion du contenu" />
-        <button className="bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 hover:bg-black/10 dark:bg-white/10 px-4 py-2 rounded-lg text-sm text-ink-mute transition-colors mb-8">
-          Se déconnecter
-        </button>
+        <form action={signout}>
+          <button className="bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 hover:bg-black/10 dark:bg-white/10 px-4 py-2 rounded-lg text-sm text-ink-mute transition-colors mb-8">
+            Se déconnecter
+          </button>
+        </form>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
