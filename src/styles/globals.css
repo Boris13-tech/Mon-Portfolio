@@ -1,0 +1,93 @@
+﻿@import "tailwindcss";
+
+@theme {
+  --color-bg: #0a0c10;
+  --color-bg-light: #f4f6f8;
+
+  --color-surface: #1a1f2e;
+  --color-surface-light: #eef1f5;
+
+  --color-ink: #e6e8eb;
+  --color-ink-dim: #c9cfd6;
+  --color-ink-mute: #94a3b8;
+  --color-ink-inverse: #0a0c10;
+
+  --color-line: rgba(230,232,235,0.08);
+
+  --color-accent-azure: #7cc4ff;
+  --color-accent-azure-strong: #3b82f6;
+  --color-accent-security: #ec4899;
+  --color-accent-security-soft: #fca5a5;
+  --color-accent-identity: #8b5cf6;
+  --color-accent-identity-soft: #c4a4ff;
+  --color-accent-devops: #fbb774;
+  --color-accent-devops-strong: #f97316;
+  --color-accent-ai: #06b6d4;
+  --color-accent-ai-soft: #67e8f9;
+  --color-accent-community: #22c55e;
+  --color-accent-community-soft: #6ee7b7;
+  --color-accent-speaking: #c026d3;
+  --color-accent-discord: #5865f2;
+  --color-accent-warn: #fbbf24;
+
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --text-display-1: 4.5rem;
+  --text-display-1--line-height: 1.02;
+  --text-display-1--letter-spacing: -0.02em;
+
+  --text-display-2: 3.5rem;
+  --text-display-2--line-height: 1.05;
+  --text-display-2--letter-spacing: -0.02em;
+
+  --text-h1: 2.5rem;
+  --text-h1--line-height: 1.10;
+  --text-h1--letter-spacing: -0.015em;
+
+  --text-h2: 2rem;
+  --text-h2--line-height: 1.15;
+
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.25;
+
+  --text-lead: 1.25rem;
+  --text-lead--line-height: 1.5;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  --shadow-card: 0 1px 0 rgba(255,255,255,0.04) inset, 0 20px 40px -20px rgba(0,0,0,0.6);
+
+  --animate-drift: drift 14s ease-in-out infinite;
+
+  @keyframes drift {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -8px, 0); }
+  }
+}
+
+:root { color-scheme: dark; }
+html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+body { background: var(--color-bg); color: var(--color-ink); }
+a { color: var(--color-accent-azure); }
+a:hover { color: var(--color-accent-azure-strong); }
+
+.floor-grid {
+  background-image:
+    linear-gradient(var(--color-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at 50% 30%, black 40%, transparent 75%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
