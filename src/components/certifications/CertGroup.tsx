@@ -8,23 +8,27 @@ export function CertGroup({ items }: { items: Certification[] }) {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {items.map((c) => {
         const visual = certVisuals[c.code];
-        if (!visual) return null;
+        const badgeSrc = c.badge_image_url ? c.badge_image_url : (visual ? visual.src : null);
+        
+        // S'il n'y a ni image CMS ni image CSS par défaut, on ignore ou on affiche un placeholder
+        if (!badgeSrc) return null;
 
-        const badgeSrc = c.badge_image_url ? c.badge_image_url : visual.src;
+        const visualColor = visual ? visual.color : "#7cc4ff";
+        const visualTransform = visual ? visual.transform : "rotateY(0deg) rotateX(0deg)";
 
         const CardContent = (
           <div
             className={`panel drift p-6 rounded-2xl flex flex-col items-center text-center shadow-lg transition-transform hover:z-10 ${c.verification_url ? 'cursor-pointer hover:scale-[1.02]' : 'cursor-default'}`}
             style={{
-              background: `linear-gradient(160deg, ${visual.color}14, rgba(255,255,255,0.01))`,
-              border: `1px solid ${visual.color}59`,
-              transform: visual.transform,
+              background: `linear-gradient(160deg, ${visualColor}14, rgba(255,255,255,0.01))`,
+              border: `1px solid ${visualColor}59`,
+              transform: visualTransform,
               boxShadow: "0 20px 45px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06)",
             }}
           >
             <div
               className="w-[120px] h-[120px] mb-3 flex items-center justify-center transition-all"
-              style={{ filter: `drop-shadow(0 10px 20px ${visual.color}59)` }}
+              style={{ filter: `drop-shadow(0 10px 20px ${visualColor}59)` }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={badgeSrc} alt={`${c.code} badge`} className="w-full h-full object-contain" />
