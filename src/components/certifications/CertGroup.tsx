@@ -35,13 +35,13 @@ export function CertGroup({ items }: { items: Certification[] }) {
             </div>
 
             <div
-              className="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest font-mono mb-2.5"
-              style={{ background: `${visual.color}14`, border: `1px solid ${visual.color}59`, color: visual.color }}
+              className="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest font-mono mb-2.5 uppercase"
+              style={{ background: `${visualColor}14`, border: `1px solid ${visualColor}59`, color: visualColor }}
             >
-              {visual.level}
+              {c.level}
             </div>
 
-            <div className="font-mono text-xs mb-1" style={{ color: visual.color }}>
+            <div className="font-mono text-xs mb-1" style={{ color: visualColor }}>
               {c.code}
             </div>
 
@@ -52,9 +52,9 @@ export function CertGroup({ items }: { items: Certification[] }) {
             <div className="text-xs text-ink-mute flex items-center gap-1.5 justify-center">
               {c.issued_at ? `Obtenue en ${c.issued_at.substring(0, 4)}` : "Obtenue"}
               {c.verification_url ? (
-                <span className="text-[#7cc4ff] opacity-70" title="Preuve vérifiable disponible">✓</span>
+                <span className="text-[#7cc4ff] opacity-70" title="Preuve vérifiable disponible">{"\u2713"}</span>
               ) : (
-                <span className="opacity-40" title="Preuve en attente d'ajout">⏳</span>
+                <span className="opacity-40" title="Preuve en attente">{"\u23F3"}</span>
               )}
             </div>
           </div>
