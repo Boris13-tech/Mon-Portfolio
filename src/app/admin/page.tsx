@@ -1,28 +1,12 @@
-import { Container } from "@/components/layout/Container";
 import { formationsData } from "@/data/formations";
-import { PageHeader } from "@/components/layout/PageHeader";
-import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
-import { signout } from "@/app/login/actions";
 import NewsletterForm from "./NewsletterForm";
 
 export default async function AdminPage() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-
-  if (!user || user.email !== "legrandborisohandjaedimo@gmail.com") {
-    redirect("/portal");
-  }
-
   return (
-    <Container className="py-24">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
-        <PageHeader eyebrow="Tableau de bord" title="Gestion du contenu" />
-        <form action={signout}>
-          <button className="bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 hover:bg-black/10 dark:hover:bg-white/10 px-4 py-2 rounded-lg text-sm text-ink-mute transition-colors md:mb-8">
-            Se déconnecter
-          </button>
-        </form>
+    <div className="flex flex-col gap-8">
+      <div>
+        <h1 className="text-3xl font-display font-medium text-ink tracking-tight mb-2">Tableau de bord</h1>
+        <p className="text-ink-mute text-sm">Bienvenue dans l'espace d'administration. Gérez le contenu de votre portfolio ici.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -38,7 +22,6 @@ export default async function AdminPage() {
         </div>
 
         <div className="md:col-span-2 flex flex-col gap-8">
-          {/* Section Édition */}
           <div className="panel p-6 rounded-2xl border border-line bg-surface/10">
             <h2 className="text-xl font-display text-gray-900 dark:text-white mb-6">Éditer les formations</h2>
             <div className="flex flex-col gap-2">
@@ -57,7 +40,6 @@ export default async function AdminPage() {
             </div>
           </div>
 
-          {/* Section Newsletter */}
           <div className="panel p-6 rounded-2xl border border-line bg-surface/30 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#c4a4ff]/10 blur-3xl rounded-full pointer-events-none" />
             <h2 className="text-xl font-display text-gray-900 dark:text-white mb-2">Envoyer une Newsletter</h2>
@@ -66,6 +48,6 @@ export default async function AdminPage() {
           </div>
         </div>
       </div>
-    </Container>
+    </div>
   );
 }
