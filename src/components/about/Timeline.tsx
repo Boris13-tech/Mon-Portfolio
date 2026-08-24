@@ -19,12 +19,12 @@ export function Timeline() {
           }}
         >
           <div>
-            <div className="font-mono text-xs text-[#7cc4ff]">2024 · aujourd'hui</div>
+            <div className="font-mono text-xs text-[#7cc4ff]">2024 à aujourd'hui</div>
             <div className="text-xs text-ink-mute/60 mt-1.5">1 an et demi</div>
           </div>
           <div>
             <div className="font-display text-[22px] font-medium tracking-tight mb-1">Ingénieur Cloud Azure</div>
-            <div className="text-[13px] text-ink-mute mb-3.5 font-mono">Intégrateur · Lyon</div>
+            <div className="text-[13px] text-ink-mute mb-3.5 font-mono">Intégrateur à Lyon</div>
             <p className="text-[14px] leading-[1.65] text-ink-dim mb-3">
               Conception de landing zones pour trois clients grands comptes. Migration d'environ 150 VMs, refonte du modèle d'identité Entra ID, mise en place du pipeline GitOps avec GitHub Actions.
             </p>
@@ -48,12 +48,12 @@ export function Timeline() {
           }}
         >
           <div>
-            <div className="font-mono text-xs text-ink-mute">2023 · 2024</div>
+            <div className="font-mono text-xs text-ink-mute">2023 à 2024</div>
             <div className="text-xs text-ink-mute/60 mt-1.5">1 an</div>
           </div>
           <div>
             <div className="font-display text-[22px] font-medium tracking-tight mb-1">Administrateur Cloud (Junior)</div>
-            <div className="text-[13px] text-ink-mute mb-3.5 font-mono">ESN · Paris</div>
+            <div className="text-[13px] text-ink-mute mb-3.5 font-mono">ESN à Paris</div>
             <p className="text-[14px] leading-[1.65] text-ink-dim mb-3">
               Run et build d'environnements Azure pour trois clients en régie. J'ai appris ici que documenter n'est pas optionnel, et que les incidents sont les meilleurs profs.
             </p>
@@ -77,12 +77,12 @@ export function Timeline() {
           }}
         >
           <div>
-            <div className="font-mono text-xs text-ink-mute/80">2022 · 2023</div>
+            <div className="font-mono text-xs text-ink-mute/80">2022 à 2023</div>
             <div className="text-xs text-ink-mute/60 mt-1.5">Stage + alternance</div>
           </div>
           <div>
             <div className="font-display text-[22px] font-medium tracking-tight mb-1">Alternant DevOps</div>
-            <div className="text-[13px] text-ink-mute mb-3.5 font-mono">Éditeur SaaS · Lyon</div>
+            <div className="text-[13px] text-ink-mute mb-3.5 font-mono">Éditeur SaaS à Lyon</div>
             <p className="text-[14px] leading-[1.65] text-ink-dim m-0">
               Ma première rencontre avec Azure. Mission : migrer une appli PHP legacy vers App Service et automatiser les déploiements. Beaucoup d'erreurs, beaucoup d'apprentissage.
             </p>

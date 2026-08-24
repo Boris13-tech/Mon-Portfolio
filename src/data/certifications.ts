@@ -2,14 +2,21 @@ export type CertStatus = "earned" | "in-progress" | "planned" | "needs-verificat
 export type CertDomainId = "azure" | "security" | "identity" | "devops" | "ai" | "m365";
 
 export interface CertDomain { id: CertDomainId; label: string; accent: string }
+
 export interface Certification {
   code: string;
-  name: string;
-  domain: CertDomainId;
+  title: string;
+  issuer: string;
+  level: string;
   status: CertStatus;
-  earnedOn?: string;
-  credentialUrl?: string;
-  badgeImage?: string;
+  issued_at?: string;
+  expires_at?: string;
+  credential_id?: string;
+  badge_image_url?: string;
+  verification_url?: string;
+  skills: string[];
+  featured: boolean;
+  display_order: number;
 }
 
 export const certDomains: CertDomain[] = [
@@ -21,20 +28,15 @@ export const certDomains: CertDomain[] = [
   { id: "m365",     label: "M365",     accent: "accent-azure" },
 ];
 
-// IMPORTANT: every certification below is "needs-verification" until Boris confirms.
-// Flip to "earned" only with a credential URL as proof.
+// Placeholder data matching the new rigorous schema.
+// No credentials fabricated. Needs real links from Admin later.
 export const certifications: Certification[] = [
-  { code: "AZ-900", name: "Azure Fundamentals",              domain: "azure",    status: "needs-verification" },
-  { code: "AZ-104", name: "Azure Administrator",             domain: "azure",    status: "needs-verification" },
-  { code: "AZ-305", name: "Azure Solutions Architect",       domain: "azure",    status: "needs-verification" },
-  { code: "AZ-400", name: "Azure DevOps Engineer",           domain: "devops",   status: "needs-verification" },
-  { code: "AZ-700", name: "Azure Networking",                domain: "azure",    status: "needs-verification" },
-  { code: "SC-100", name: "Cybersecurity Architect",         domain: "security", status: "needs-verification" },
-  { code: "SC-300", name: "Identity & Access Administrator", domain: "identity", status: "needs-verification" },
-  { code: "AI-103", name: "AI Engineer",                     domain: "ai",       status: "needs-verification" },
-  { code: "AI-900", name: "AI Fundamentals",                 domain: "ai",       status: "planned" },
-  { code: "DP-100", name: "Machine Learning",                domain: "ai",       status: "planned" },
-  { code: "DP-203", name: "Data Engineer",                   domain: "ai",       status: "planned" },
-  { code: "MS-900", name: "Microsoft 365 Fundamentals",      domain: "m365",     status: "planned" },
-  { code: "MS-102", name: "Microsoft 365 Enterprise Admin",  domain: "m365",     status: "planned" },
+  { code: "AZ-900", title: "Azure Fundamentals", issuer: "Microsoft", level: "Fundamentals", status: "needs-verification", skills: ["Cloud Concepts", "Azure Services"], featured: true, display_order: 10 },
+  { code: "AZ-104", title: "Azure Administrator", issuer: "Microsoft", level: "Associate", status: "needs-verification", skills: ["Compute", "Networking", "Storage"], featured: true, display_order: 20 },
+  { code: "AZ-305", title: "Azure Solutions Architect", issuer: "Microsoft", level: "Expert", status: "needs-verification", skills: ["Architecture", "Compute", "Data"], featured: true, display_order: 30 },
+  { code: "AZ-400", title: "DevOps Engineer", issuer: "Microsoft", level: "Expert", status: "needs-verification", skills: ["CI/CD", "GitOps", "Containers"], featured: true, display_order: 40 },
+  { code: "AZ-700", title: "Azure Networking", issuer: "Microsoft", level: "Associate", status: "needs-verification", skills: ["VNet", "ExpressRoute", "Routing"], featured: true, display_order: 50 },
+  { code: "SC-100", title: "Cybersecurity Architect", issuer: "Microsoft", level: "Expert", status: "needs-verification", skills: ["Zero Trust", "Security Architecture"], featured: true, display_order: 60 },
+  { code: "SC-300", title: "Identity & Access Administrator", issuer: "Microsoft", level: "Associate", status: "needs-verification", skills: ["Entra ID", "IAM", "Conditional Access"], featured: true, display_order: 70 },
+  { code: "AI-103", title: "AI Engineer", issuer: "Microsoft", level: "Associate", status: "needs-verification", skills: ["Cognitive Services", "Azure OpenAI"], featured: true, display_order: 80 },
 ];

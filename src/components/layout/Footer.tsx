@@ -19,7 +19,7 @@ export function Footer() {
           Credly
         </a>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left">
         <span>Écrit depuis Lyon, entre deux cafés.</span>
         <Link href="/login" className="text-[10px] uppercase tracking-wider text-ink-mute/40 hover:text-ink-mute transition-colors">Admin</Link>
       </div>

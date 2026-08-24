@@ -16,10 +16,10 @@ export default async function AdminPage() {
 
   return (
     <Container className="py-24">
-      <div className="flex justify-between items-end mb-12">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
         <PageHeader eyebrow="Tableau de bord" title="Gestion du contenu" />
         <form action={signout}>
-          <button className="bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 hover:bg-black/10 dark:bg-white/10 px-4 py-2 rounded-lg text-sm text-ink-mute transition-colors mb-8">
+          <button className="bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 hover:bg-black/10 dark:hover:bg-white/10 px-4 py-2 rounded-lg text-sm text-ink-mute transition-colors md:mb-8">
             Se déconnecter
           </button>
         </form>

@@ -8,12 +8,11 @@ export function CertGroup({ items }: { items: Certification[] }) {
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {items.map((c) => {
         const visual = certVisuals[c.code];
-        if (!visual) return null; // Only render those with a visual config
+        if (!visual) return null;
 
-        return (
+        const CardContent = (
           <div
-            key={c.code}
-            className="panel drift p-6 rounded-2xl flex flex-col items-center text-center shadow-lg transition-transform hover:z-10"
+            className={`panel drift p-6 rounded-2xl flex flex-col items-center text-center shadow-lg transition-transform hover:z-10 ${c.verification_url ? 'cursor-pointer hover:scale-[1.02]' : 'cursor-default'}`}
             style={{
               background: `linear-gradient(160deg, ${visual.color}14, rgba(255,255,255,0.01))`,
               border: `1px solid ${visual.color}59`,
@@ -26,38 +25,42 @@ export function CertGroup({ items }: { items: Certification[] }) {
               style={{ filter: `drop-shadow(0 10px 20px ${visual.color}59)` }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={visual.src}
-                alt={`${c.code} badge`}
-                className="w-full h-full object-contain"
-              />
+              <img src={visual.src} alt={`${c.code} badge`} className="w-full h-full object-contain" />
             </div>
 
             <div
               className="px-2.5 py-1 rounded-md text-[10px] font-bold tracking-widest font-mono mb-2.5"
-              style={{
-                background: `${visual.color}14`,
-                border: `1px solid ${visual.color}59`,
-                color: visual.color,
-              }}
+              style={{ background: `${visual.color}14`, border: `1px solid ${visual.color}59`, color: visual.color }}
             >
               {visual.level}
             </div>
 
-            <div
-              className="font-mono text-xs mb-1"
-              style={{ color: visual.color }}
-            >
+            <div className="font-mono text-xs mb-1" style={{ color: visual.color }}>
               {c.code}
             </div>
 
             <div className="font-display text-[17px] leading-tight tracking-tight mb-2">
-              {c.name}
+              {c.title}
             </div>
 
-            <div className="text-xs text-ink-mute">
-              {c.earnedOn ? `Obtenue en ${c.earnedOn.substring(0, 4)}` : "Obtenue"}
+            <div className="text-xs text-ink-mute flex items-center gap-1.5 justify-center">
+              {c.issued_at ? `Obtenue en ${c.issued_at.substring(0, 4)}` : "Obtenue"}
+              {c.verification_url ? (
+                <span className="text-[#7cc4ff] opacity-70" title="Preuve vérifiable disponible">✓</span>
+              ) : (
+                <span className="opacity-40" title="Preuve en attente d'ajout">⏳</span>
+              )}
             </div>
+          </div>
+        );
+
+        return c.verification_url ? (
+          <a key={c.code} href={c.verification_url} target="_blank" rel="noreferrer" className="block outline-none focus-visible:ring-2 focus-visible:ring-[#7cc4ff] rounded-2xl">
+            {CardContent}
+          </a>
+        ) : (
+          <div key={c.code}>
+            {CardContent}
           </div>
         );
       })}

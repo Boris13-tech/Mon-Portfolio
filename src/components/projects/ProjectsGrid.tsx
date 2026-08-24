@@ -158,13 +158,8 @@ export function ProjectsGrid({ projects, className }: { projects: Project[]; cla
           <Link
             key={p.slug}
             href={`/projects/${p.slug}`}
-            className="panel"
+            className="panel flex flex-col lg:grid lg:grid-cols-[1.1fr_0.9fr] gap-8 p-6 md:p-10 rounded-[18px]"
             style={{
-              display: "grid",
-              gridTemplateColumns: "1.1fr 0.9fr",
-              gap: "32px",
-              padding: "36px 40px",
-              borderRadius: "18px",
               background: t.bg,
               border: `1px solid ${t.border}`,
               boxShadow: "0 25px 60px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06)",
@@ -172,8 +167,8 @@ export function ProjectsGrid({ projects, className }: { projects: Project[]; cla
               color: "inherit",
             }}
           >
-            {/* Text column — always rendered, swapped via CSS order for ZeroTrust */}
-            <div style={{ order: isLeft ? 2 : 1, minWidth: 0 }}>
+            {/* Text column – always rendered, swapped via CSS order for ZeroTrust on desktop */}
+            <div className={`min-w-0 flex flex-col ${isLeft ? 'lg:order-2 order-1' : 'order-1'}`}>
 
               {/* Icon + label row */}
               <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
@@ -240,13 +235,7 @@ export function ProjectsGrid({ projects, className }: { projects: Project[]; cla
 
             {/* Diagram column */}
             <div
-              style={{
-                order: isLeft ? 1 : 2,
-                background: "rgba(0,0,0,.3)", border: "1px solid rgba(255,255,255,.06)",
-                borderRadius: "14px", padding: "18px",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                minWidth: 0,
-              }}
+              className={`min-w-0 flex items-center justify-center p-4 md:p-6 rounded-[14px] overflow-hidden bg-black/30 border border-white/5 ${isLeft ? 'lg:order-1 order-2' : 'order-2'}`}
             >
               {DiagramComponent ? <DiagramComponent /> : null}
             </div>
