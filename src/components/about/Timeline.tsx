@@ -1,6 +1,9 @@
 export function Timeline() {
   return (
     <section className="scene w-full max-w-[1200px] mx-auto px-7 py-16">
+export function Timeline() {
+  return (
+    <section className="scene w-full max-w-[1200px] mx-auto px-7 py-16">
       <div className="font-mono text-[11px] text-[#7cc4ff] tracking-widest uppercase mb-3">
         {"// parcours"}
       </div>
@@ -19,17 +22,17 @@ export function Timeline() {
           }}
         >
           <div>
-            <div className="font-mono text-xs text-[#7cc4ff]">2024 à aujourd'hui</div>
-            <div className="text-xs text-ink-mute/60 mt-1.5">1 an et demi</div>
+            <div className="font-mono text-xs text-[#7cc4ff]">Déc. 2025 à aujourd'hui</div>
+            <div className="text-xs text-ink-mute/60 mt-1.5">Legrand-Tech</div>
           </div>
           <div>
-            <div className="font-display text-[22px] font-medium tracking-tight mb-1">Ingénieur Cloud Azure</div>
-            <div className="text-[13px] text-ink-mute mb-3.5 font-mono">Intégrateur à Lyon</div>
+            <div className="font-display text-[22px] font-medium tracking-tight mb-1">Security Architect</div>
+            <div className="text-[13px] text-ink-mute mb-3.5 font-mono">Architecture Cloud & Cyber</div>
             <p className="text-[14px] leading-[1.65] text-ink-dim mb-3">
-              Conception de landing zones pour trois clients grands comptes. Migration d'environ 150 VMs, refonte du modèle d'identité Entra ID, mise en place du pipeline GitOps avec GitHub Actions.
+              Je dirige la vision architecturale de la cybersécurité et du cloud. Mon focus : concevoir des architectures Azure robustes, implémenter le Zero Trust, sécuriser les identités (Entra ID) et aligner la technique sur la conformité (NIST, ISO 27001).
             </p>
             <div className="flex gap-1.5 flex-wrap">
-              {['Terraform', 'AKS', 'Entra ID', 'GitHub Actions'].map((tag) => (
+              {['Azure', 'Zero Trust', 'Entra ID', 'Defender XDR', 'Purview'].map((tag) => (
                 <span key={tag} className="font-mono text-[11px] px-2 py-[3px] border border-black/10 dark:border-white/10 rounded-[5px] text-ink-mute/80">
                   {tag}
                 </span>
@@ -48,17 +51,17 @@ export function Timeline() {
           }}
         >
           <div>
-            <div className="font-mono text-xs text-ink-mute">2023 à 2024</div>
-            <div className="text-xs text-ink-mute/60 mt-1.5">1 an</div>
+            <div className="font-mono text-xs text-ink-mute">Mai 2025 à Déc. 2025</div>
+            <div className="text-xs text-ink-mute/60 mt-1.5">Académie Cyber & Réseaux</div>
           </div>
           <div>
-            <div className="font-display text-[22px] font-medium tracking-tight mb-1">Administrateur Cloud (Junior)</div>
-            <div className="text-[13px] text-ink-mute mb-3.5 font-mono">ESN à Paris</div>
+            <div className="font-display text-[22px] font-medium tracking-tight mb-1">Head of Audit & Compliance</div>
+            <div className="text-[13px] text-ink-mute mb-3.5 font-mono">Responsable Audit</div>
             <p className="text-[14px] leading-[1.65] text-ink-dim mb-3">
-              Run et build d'environnements Azure pour trois clients en régie. J'ai appris ici que documenter n'est pas optionnel, et que les incidents sont les meilleurs profs.
+              Validation des standards de sécurité, évaluation des risques et accompagnement sur les bonnes pratiques de gouvernance informatique.
             </p>
             <div className="flex gap-1.5 flex-wrap">
-              {['Azure Admin', 'Bicep', 'PowerShell'].map((tag) => (
+              {['Audit', 'Conformité', 'Risk Management'].map((tag) => (
                 <span key={tag} className="font-mono text-[11px] px-2 py-[3px] border border-black/10 dark:border-white/10 rounded-[5px] text-ink-mute/80">
                   {tag}
                 </span>
@@ -77,15 +80,22 @@ export function Timeline() {
           }}
         >
           <div>
-            <div className="font-mono text-xs text-ink-mute/80">2022 à 2023</div>
-            <div className="text-xs text-ink-mute/60 mt-1.5">Stage + alternance</div>
+            <div className="font-mono text-xs text-ink-mute/80">Depuis Août 2022</div>
+            <div className="text-xs text-ink-mute/60 mt-1.5">Eviden / Atos</div>
           </div>
           <div>
-            <div className="font-display text-[22px] font-medium tracking-tight mb-1">Alternant DevOps</div>
-            <div className="text-[13px] text-ink-mute mb-3.5 font-mono">Éditeur SaaS à Lyon</div>
+            <div className="font-display text-[22px] font-medium tracking-tight mb-1">Senior Support Analyst</div>
+            <div className="text-[13px] text-ink-mute mb-3.5 font-mono">Support & Amélioration continue</div>
             <p className="text-[14px] leading-[1.65] text-ink-dim m-0">
-              Ma première rencontre avec Azure. Mission : migrer une appli PHP legacy vers App Service et automatiser les déploiements. Beaucoup d'erreurs, beaucoup d'apprentissage.
+              Évolution continue depuis le poste d'Analyste Junior. Administration systèmes, environnements Office 365 et assistance utilisateur complexe. Une excellente école pour apprendre la rigueur, l'autonomie et l'écoute active.
             </p>
+            <div className="flex gap-1.5 flex-wrap mt-3">
+              {['Office 365', 'Windows Sysadmin', 'Python', 'Support IT'].map((tag) => (
+                <span key={tag} className="font-mono text-[11px] px-2 py-[3px] border border-black/10 dark:border-white/10 rounded-[5px] text-ink-mute/80">
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </div>

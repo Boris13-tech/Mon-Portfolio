@@ -7,7 +7,7 @@ const cards = [
     label: "01 · À PROPOS",
     labelColor: "#7cc4ff",
     title: "Qui je suis", 
-    desc: "Trois ans à apprendre le cloud à la dure.",
+    desc: "Security Architect chez Legrand-Tech.",
     bg: "linear-gradient(160deg,rgba(59,130,246,.1),rgba(139,92,246,.03))",
     border: "rgba(124,196,255,.18)",
     transform: "rotateY(-4deg) rotateX(2deg)",
