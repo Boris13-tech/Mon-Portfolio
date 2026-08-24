@@ -19,6 +19,7 @@ export async function createCertification(formData: FormData) {
   const level = formData.get("level") as string;
   const status = formData.get("status") as CertStatus;
   const verification_url = formData.get("verification_url") as string;
+  const badge_image_url = formData.get("badge_image_url") as string;
   const issued_at_raw = formData.get("issued_at") as string;
   const credential_id = formData.get("credential_id") as string;
   const display_order = parseInt(formData.get("display_order") as string) || 0;
@@ -29,6 +30,7 @@ export async function createCertification(formData: FormData) {
     issuer,
     level,
     status,
+    badge_image_url: badge_image_url || null,
     verification_url: verification_url || null,
     issued_at: issued_at_raw || null,
     credential_id: credential_id || null,

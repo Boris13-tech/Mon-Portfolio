@@ -10,6 +10,8 @@ export function CertGroup({ items }: { items: Certification[] }) {
         const visual = certVisuals[c.code];
         if (!visual) return null;
 
+        const badgeSrc = c.badge_image_url ? c.badge_image_url : visual.src;
+
         const CardContent = (
           <div
             className={`panel drift p-6 rounded-2xl flex flex-col items-center text-center shadow-lg transition-transform hover:z-10 ${c.verification_url ? 'cursor-pointer hover:scale-[1.02]' : 'cursor-default'}`}
@@ -25,7 +27,7 @@ export function CertGroup({ items }: { items: Certification[] }) {
               style={{ filter: `drop-shadow(0 10px 20px ${visual.color}59)` }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={visual.src} alt={`${c.code} badge`} className="w-full h-full object-contain" />
+              <img src={badgeSrc} alt={`${c.code} badge`} className="w-full h-full object-contain" />
             </div>
 
             <div

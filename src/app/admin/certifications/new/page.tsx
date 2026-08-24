@@ -56,6 +56,12 @@ export default function NewCertificationPage() {
             <input type="url" id="verification_url" name="verification_url" placeholder="https://..." className="bg-bg border border-line rounded-lg px-4 py-2 text-ink text-sm focus:outline-none focus:border-[#7cc4ff] transition-colors" />
           </div>
 
+          <div className="flex flex-col gap-2 md:col-span-2">
+            <label htmlFor="badge_image_url" className="text-sm font-medium text-ink">Image du Badge (URL ou chemin)</label>
+            <input type="text" id="badge_image_url" name="badge_image_url" placeholder="/badges/expert.png" className="bg-bg border border-line rounded-lg px-4 py-2 text-ink text-sm focus:outline-none focus:border-[#7cc4ff] transition-colors" />
+            <p className="text-xs text-ink-mute">Astuce : Vous pouvez utiliser "/badges/expert.png" ou "/badges/associate.png" pour les images Microsoft officielles.</p>
+          </div>
+
           <div className="flex flex-col gap-2">
             <label htmlFor="credential_id" className="text-sm font-medium text-ink">Credential ID (optionnel)</label>
             <input type="text" id="credential_id" name="credential_id" className="bg-bg border border-line rounded-lg px-4 py-2 text-ink text-sm focus:outline-none focus:border-[#7cc4ff] transition-colors" />
