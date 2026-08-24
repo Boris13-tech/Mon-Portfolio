@@ -1,9 +1,6 @@
 export function Timeline() {
   return (
     <section className="scene w-full max-w-[1200px] mx-auto px-7 py-16">
-export function Timeline() {
-  return (
-    <section className="scene w-full max-w-[1200px] mx-auto px-7 py-16">
       <div className="font-mono text-[11px] text-[#7cc4ff] tracking-widest uppercase mb-3">
         {"// parcours"}
       </div>
