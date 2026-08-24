@@ -8,9 +8,9 @@ describe("data integrity", () => {
       expect(["earned", "in-progress", "planned", "needs-verification"]).toContain(c.status);
     }
   });
-  it("no certification is silently earned without a credentialUrl", () => {
+  it("no certification is silently earned without a verification_url", () => {
     for (const c of certifications) {
-      if (c.status === "earned") expect(c.credentialUrl, `${c.code} marked earned needs credentialUrl`).toBeTruthy();
+      if (c.status === "earned") expect(c.verification_url, `${c.code} marked earned needs verification_url`).toBeTruthy();
     }
   });
   it("project slugs are unique", () => {

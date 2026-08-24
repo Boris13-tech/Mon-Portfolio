@@ -37,7 +37,7 @@ export async function createCertification(formData: FormData) {
 
   if (error) {
     console.error("Error creating certification:", error);
-    return { error: error.message };
+    throw new Error(error.message);
   }
 
   revalidatePath("/admin/certifications");
