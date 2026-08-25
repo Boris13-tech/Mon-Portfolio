@@ -70,3 +70,48 @@ export async function deleteFormation(formData: FormData) {
 
   revalidatePath("/admin/formations");
 }
+
+export async function createFormationResource(formData: FormData) {
+  const supabase = await createClient();
+  
+  const formation_id = formData.get("formation_id") as string;
+  const formation_slug = formData.get("formation_slug") as string;
+  
+  const title = formData.get("title") as string;
+  const resource_type = formData.get("resource_type") as string;
+  const url = formData.get("url") as string;
+  const description = formData.get("description") as string;
+  const display_order = parseInt(formData.get("display_order") as string) || 0;
+
+  const { error } = await supabase.from("formation_resources").insert({
+    formation_id,
+    title,
+    resource_type,
+    url,
+    description: description || null,
+    display_order
+  });
+
+  if (error) {
+    console.error("Error creating resource:", error);
+    throw new Error(error.message);
+  }
+
+  revalidatePath(`/admin/formations/${formation_slug}`);
+  redirect(`/admin/formations/${formation_slug}`);
+}
+
+export async function deleteFormationResource(formData: FormData) {
+  const supabase = await createClient();
+  const id = formData.get("id") as string;
+  const formation_slug = formData.get("formation_slug") as string;
+
+  const { error } = await supabase.from("formation_resources").delete().eq("id", id);
+
+  if (error) {
+    console.error("Error deleting resource:", error);
+    throw new Error(error.message);
+  }
+
+  revalidatePath(`/admin/formations/${formation_slug}`);
+}

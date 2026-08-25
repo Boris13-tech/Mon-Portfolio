@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/layout/PageHeader";
-import { updateFormation } from "../actions";
+import { updateFormation, createFormationResource, deleteFormationResource } from "../actions";
 import Link from "next/link";
-import { ArrowLeft, Plus, FileText, Link as LinkIcon, Video, Code, BookOpen } from "lucide-react";
+import { ArrowLeft, Plus, FileText, Link as LinkIcon, Video, Code, BookOpen, Trash2 } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
 import { notFound } from "next/navigation";
 
@@ -86,11 +86,52 @@ export default async function EditFormationPage({ params }: { params: { slug: st
             <h2 className="text-xl font-display font-medium text-ink">Catalogue de Ressources</h2>
             <p className="text-sm text-ink-mute mt-1">Gérez les liens, PDF, et articles liés à cette formation.</p>
           </div>
-          <button className="bg-surface border border-line text-ink px-4 py-2 rounded-lg text-sm font-medium hover:bg-black/5 dark:hover:bg-white/5 transition-colors flex items-center gap-2">
-            <Plus size={16} /> Ajouter une ressource
-          </button>
         </div>
 
+        {/* AJOUTER UNE RESSOURCE (ACCORDION) */}
+        <details className="group bg-surface/10 border border-line rounded-2xl overflow-hidden mb-4">
+          <summary className="flex items-center gap-2 p-4 cursor-pointer font-medium text-ink hover:bg-black/5 dark:hover:bg-white/5 transition-colors list-none">
+            <Plus size={16} className="text-[#7cc4ff]" /> Ajouter une nouvelle ressource
+          </summary>
+          <div className="p-6 border-t border-line bg-surface/5">
+            <form action={createFormationResource} className="flex flex-col gap-4">
+              <input type="hidden" name="formation_id" value={formation.id} />
+              <input type="hidden" name="formation_slug" value={formation.slug} />
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="res_title" className="text-sm text-ink">Titre de la ressource</label>
+                  <input required type="text" id="res_title" name="title" className="bg-bg border border-line rounded-lg px-3 py-2 text-sm text-ink" placeholder="Ex: Guide AZ-900 Officiel" />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="resource_type" className="text-sm text-ink">Type</label>
+                  <select id="resource_type" name="resource_type" className="bg-bg border border-line rounded-lg px-3 py-2 text-sm text-ink">
+                    <option value="link">Lien / URL</option>
+                    <option value="pdf">Document PDF</option>
+                    <option value="video">Vidéo</option>
+                    <option value="article">Article de blog</option>
+                    <option value="github">Dépôt GitHub</option>
+                  </select>
+                </div>
+                <div className="flex flex-col gap-2 md:col-span-2">
+                  <label htmlFor="url" className="text-sm text-ink">URL / Lien vers la ressource</label>
+                  <input required type="url" id="url" name="url" className="bg-bg border border-line rounded-lg px-3 py-2 text-sm text-ink" placeholder="https://..." />
+                </div>
+                <div className="flex flex-col gap-2 md:col-span-2">
+                  <label htmlFor="res_desc" className="text-sm text-ink">Description courte (optionnel)</label>
+                  <input type="text" id="res_desc" name="description" className="bg-bg border border-line rounded-lg px-3 py-2 text-sm text-ink" placeholder="Informations complémentaires..." />
+                </div>
+              </div>
+              <div className="flex justify-end mt-2">
+                <button type="submit" className="bg-ink text-bg px-4 py-2 rounded-lg text-sm font-medium hover:opacity-90">
+                  Enregistrer la ressource
+                </button>
+              </div>
+            </form>
+          </div>
+        </details>
+
+        {/* LISTE DES RESSOURCES */}
         <div className="flex flex-col gap-3">
           {resources && resources.length > 0 ? (
             resources.map((res) => (
@@ -107,14 +148,19 @@ export default async function EditFormationPage({ params }: { params: { slug: st
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <button className="text-xs text-ink-mute hover:text-ink px-3 py-1.5 rounded bg-black/5 dark:bg-white/5">Modifier</button>
-                  <button className="text-xs text-red-500/80 hover:text-red-500 px-3 py-1.5 rounded bg-red-500/10">Retirer</button>
+                  <form action={deleteFormationResource}>
+                    <input type="hidden" name="id" value={res.id} />
+                    <input type="hidden" name="formation_slug" value={formation.slug} />
+                    <button type="submit" className="text-xs text-red-500/80 hover:text-red-500 px-3 py-1.5 rounded bg-red-500/10 flex items-center gap-1">
+                      <Trash2 size={14} /> Retirer
+                    </button>
+                  </form>
                 </div>
               </div>
             ))
           ) : (
             <div className="text-center py-10 bg-surface/5 border border-line border-dashed rounded-xl text-ink-mute text-sm">
-              Aucune ressource pour l'instant. Cliquez sur "Ajouter une ressource" pour commencer.
+              Aucune ressource pour l'instant. Ajoutez-en une ci-dessus.
             </div>
           )}
         </div>
