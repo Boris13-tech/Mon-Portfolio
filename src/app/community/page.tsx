@@ -37,7 +37,7 @@ export default function CommunityPage() {
           </p>
 
           <a 
-            href="#" 
+            href="https://discord.gg/5BkpGXRYD" 
             target="_blank" 
             rel="noopener noreferrer"
             className="relative z-10 mt-4 flex items-center gap-2 bg-[#5865F2] hover:bg-[#4752C4] text-white px-8 py-3.5 rounded-xl font-medium transition-all shadow-lg shadow-[#5865F2]/25 hover:scale-105"
@@ -46,7 +46,6 @@ export default function CommunityPage() {
             Rejoindre boris.azure
             <ExternalLink size={16} className="ml-2 opacity-70" />
           </a>
-          <p className="relative z-10 text-xs text-ink-mute mt-[-10px] italic">Le lien d'invitation arrive très bientôt !</p>
         </div>
 
         {/* Feature Grid */}
