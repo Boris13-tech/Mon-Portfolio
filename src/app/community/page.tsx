@@ -15,7 +15,7 @@ export default function CommunityPage() {
       <PageHeader 
         eyebrow="Communauté" 
         title="boris.azure" 
-        description="L'espace d'échange francophone dédié à l'architecture Cloud Microsoft, la cybersécurité et l'écosystème Zero Trust." 
+        sub="L'espace d'échange francophone dédié à l'architecture Cloud Microsoft, la cybersécurité et l'écosystème Zero Trust." 
       />
       
       <div className="mt-16 max-w-4xl mx-auto">
