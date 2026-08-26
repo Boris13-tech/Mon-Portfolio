@@ -32,6 +32,7 @@
         "react": "19.2.8",
         "react-dom": "19.2.8",
         "react-hook-form": "latest",
+        "react-markdown": "^10.1.0",
         "reading-time": "latest",
         "resend": "latest",
         "tailwind-merge": "latest",

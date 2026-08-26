@@ -44,15 +44,19 @@ export function SearchWidget() {
       const { data: formations } = await supabase
         .from("formations")
         .select("title, slug, description, tags")
-        .eq("status", "published")
         .or(`title.ilike.%${searchTerms}%,description.ilike.%${searchTerms}%`);
 
       // Rechercher dans les certifications
       const { data: certs } = await supabase
         .from("certifications")
         .select("title, issuer, url")
-        .eq("status", "published")
         .ilike("title", `%${searchTerms}%`);
+
+      // Rechercher dans les projets
+      const { data: projects } = await supabase
+        .from("projects")
+        .select("title, slug, description, tags, client")
+        .or(`title.ilike.%${searchTerms}%,description.ilike.%${searchTerms}%`);
 
       const formattedResults = [];
 
@@ -74,6 +78,17 @@ export function SearchWidget() {
             title: c.title,
             description: c.issuer,
             href: `/certifications`,
+          }))
+        );
+      }
+
+      if (projects) {
+        formattedResults.push(
+          ...projects.map((p) => ({
+            type: "Projet",
+            title: p.title,
+            description: p.client || p.description,
+            href: `/projects/${p.slug}`,
           }))
         );
       }
