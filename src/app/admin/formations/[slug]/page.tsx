@@ -57,6 +57,22 @@ export default async function EditFormationPage({ params }: { params: { slug: st
             </div>
 
             <div className="flex flex-col gap-2">
+              <label htmlFor="tags" className="text-sm font-medium text-ink">Tags (séparés par des virgules)</label>
+              <input type="text" id="tags" name="tags" defaultValue={(formation.tags || []).join(", ")} className="bg-bg border border-line rounded-lg px-4 py-2 text-ink text-sm focus:outline-none focus:border-[#7cc4ff] transition-colors" placeholder="Azure, Sécurité, Zero Trust" />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="flex flex-col gap-2">
+                <label htmlFor="prerequisites" className="text-sm font-medium text-ink">Prérequis</label>
+                <textarea id="prerequisites" name="prerequisites" defaultValue={formation.prerequisites} rows={3} className="bg-bg border border-line rounded-lg px-4 py-2 text-ink text-sm focus:outline-none focus:border-[#7cc4ff] transition-colors" placeholder="Ce qu'il faut savoir avant..." />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="objectives" className="text-sm font-medium text-ink">Objectifs</label>
+                <textarea id="objectives" name="objectives" defaultValue={formation.objectives} rows={3} className="bg-bg border border-line rounded-lg px-4 py-2 text-ink text-sm focus:outline-none focus:border-[#7cc4ff] transition-colors" placeholder="Ce qu'on va apprendre..." />
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-2">
               <label htmlFor="cover_image_url" className="text-sm font-medium text-ink">Image de couverture (URL)</label>
               <input type="text" id="cover_image_url" name="cover_image_url" defaultValue={formation.cover_image_url} className="bg-bg border border-line rounded-lg px-4 py-2 text-ink text-sm focus:outline-none focus:border-[#7cc4ff] transition-colors" />
             </div>

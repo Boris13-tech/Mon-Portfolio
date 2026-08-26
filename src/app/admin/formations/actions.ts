@@ -12,13 +12,22 @@ export async function createFormation(formData: FormData) {
   const description = formData.get("description") as string;
   const cover_image_url = formData.get("cover_image_url") as string;
   const status = formData.get("status") as string;
+  
+  // Nouveaux champs
+  const tagsString = formData.get("tags") as string;
+  const tags = tagsString ? tagsString.split(',').map(t => t.trim()).filter(Boolean) : [];
+  const prerequisites = formData.get("prerequisites") as string;
+  const objectives = formData.get("objectives") as string;
 
   const { error } = await supabase.from("formations").insert({
     title,
     slug,
     description: description || null,
     cover_image_url: cover_image_url || null,
-    status
+    status,
+    tags,
+    prerequisites: prerequisites || null,
+    objectives: objectives || null
   });
 
   if (error) {
@@ -40,12 +49,22 @@ export async function updateFormation(formData: FormData) {
   const cover_image_url = formData.get("cover_image_url") as string;
   const status = formData.get("status") as string;
 
+  // Nouveaux champs
+  const tagsString = formData.get("tags") as string;
+  const tags = tagsString ? tagsString.split(',').map(t => t.trim()).filter(Boolean) : [];
+  const prerequisites = formData.get("prerequisites") as string;
+  const objectives = formData.get("objectives") as string;
+
   const { error } = await supabase.from("formations").update({
     title,
     slug,
     description: description || null,
     cover_image_url: cover_image_url || null,
-    status
+    status,
+    tags,
+    prerequisites: prerequisites || null,
+    objectives: objectives || null,
+    updated_at: new Date().toISOString()
   }).eq("id", id);
 
   if (error) {
