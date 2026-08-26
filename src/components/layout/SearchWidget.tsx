@@ -1,16 +1,18 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Search } from "lucide-react";
+import { Search, BookOpen, Award, Briefcase, Command } from "lucide-react";
 import Link from "next/link";
-import { formationsData } from "@/data/formations";
-import { useRouter } from "next/navigation";
+import { createClient } from "@/utils/supabase/client";
 
 export function SearchWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [results, setResults] = useState<{ type: string; title: string; href: string; description?: string }[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   
   const inputRef = useRef<HTMLInputElement>(null);
+  const supabase = createClient();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -28,9 +30,64 @@ export function SearchWidget() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
-  const results = query
-    ? formationsData.filter((f) => f.label.toLowerCase().includes(query.toLowerCase()) || f.category.toLowerCase().includes(query.toLowerCase()))
-    : [];
+  useEffect(() => {
+    const fetchResults = async () => {
+      if (query.trim().length < 2) {
+        setResults([]);
+        return;
+      }
+
+      setIsLoading(true);
+      const searchTerms = query.toLowerCase();
+
+      // Rechercher dans les formations
+      const { data: formations } = await supabase
+        .from("formations")
+        .select("title, slug, description, tags")
+        .eq("status", "published")
+        .or(`title.ilike.%${searchTerms}%,description.ilike.%${searchTerms}%`);
+
+      // Rechercher dans les certifications
+      const { data: certs } = await supabase
+        .from("certifications")
+        .select("title, issuer, url")
+        .eq("status", "published")
+        .ilike("title", `%${searchTerms}%`);
+
+      const formattedResults = [];
+
+      if (formations) {
+        formattedResults.push(
+          ...formations.map((f) => ({
+            type: "Formation",
+            title: f.title,
+            description: f.description,
+            href: `/formations/${f.slug}`,
+          }))
+        );
+      }
+
+      if (certs) {
+        formattedResults.push(
+          ...certs.map((c) => ({
+            type: "Certification",
+            title: c.title,
+            description: c.issuer,
+            href: `/certifications`,
+          }))
+        );
+      }
+
+      setResults(formattedResults);
+      setIsLoading(false);
+    };
+
+    const debounce = setTimeout(() => {
+      fetchResults();
+    }, 300);
+
+    return () => clearTimeout(debounce);
+  }, [query, supabase]);
 
   return (
     <div className="relative">
@@ -54,38 +111,53 @@ export function SearchWidget() {
           onFocus={() => setIsOpen(true)}
           className="flex-1 min-w-0 bg-transparent border-0 outline-none text-ink text-sm placeholder:text-ink-mute"
         />
-        <kbd className="font-mono text-[11px] px-[7px] py-[3px] bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[5px] text-ink-mute">⌘K</kbd>
+        <kbd className="font-mono text-[11px] px-[7px] py-[3px] bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-[5px] text-ink-mute">Cmd+K</kbd>
       </div>
 
       {isOpen && query && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
-          <div className="absolute top-[calc(100%+8px)] right-0 w-[300px] bg-white/98 dark:bg-white dark:bg-[#0e1116]/98 backdrop-blur-xl border border-line/50 rounded-xl shadow-2xl z-50 overflow-hidden flex flex-col max-h-[300px]">
+          <div className="absolute top-[calc(100%+8px)] right-0 w-[400px] bg-white/98 dark:bg-white dark:bg-[#0e1116]/98 backdrop-blur-xl border border-line/50 rounded-xl shadow-2xl z-50 overflow-hidden flex flex-col max-h-[400px]">
             <div className="p-2 overflow-y-auto flex-1">
-              {results.length > 0 ? (
-                results.map((r) => (
+              
+              {isLoading && (
+                 <div className="px-3 py-6 text-center text-[13px] text-ink-mute">Recherche en cours...</div>
+              )}
+
+              {!isLoading && results.length > 0 ? (
+                results.map((r, idx) => (
                   <Link 
-                    key={r.slug} 
-                    href={`/formations/${r.slug}`}
+                    key={idx} 
+                    href={r.href}
                     onClick={() => {
                       setIsOpen(false);
                       setQuery("");
                     }}
-                    className="flex flex-col gap-1 px-3 py-2.5 rounded-lg hover:bg-black/5 dark:bg-white/5 transition-colors"
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-black/5 dark:bg-white/5 transition-colors group"
                   >
-                    <span className="text-[13px] text-ink">{r.label}</span>
-                    <span className="text-[10px] font-mono" style={{ color: r.color }}>{r.category}</span>
+                    <div className="w-8 h-8 rounded-md bg-black/5 dark:bg-white/5 border border-line flex items-center justify-center shrink-0">
+                      {r.type === "Formation" && <BookOpen size={14} className="text-[#7cc4ff]" />}
+                      {r.type === "Certification" && <Award size={14} className="text-purple-400" />}
+                      {r.type === "Projet" && <Briefcase size={14} className="text-green-400" />}
+                    </div>
+                    <div className="flex flex-col gap-0.5">
+                      <span className="text-[13px] text-ink font-medium group-hover:text-[#7cc4ff] transition-colors">{r.title}</span>
+                      <span className="text-[10px] font-mono tracking-widest uppercase text-ink-mute">{r.type}</span>
+                    </div>
                   </Link>
                 ))
-              ) : (
-                <div className="px-3 py-4 text-center text-[13px] text-ink-mute">
-                  Aucun résultat pour &quot;{query}&quot;
+              ) : !isLoading ? (
+                <div className="px-3 py-6 text-center flex flex-col items-center gap-2 text-ink-mute">
+                  <Command size={20} className="opacity-50" />
+                  <span className="text-[13px]">Aucun résultat pour &quot;{query}&quot;</span>
                 </div>
-              )}
+              ) : null}
             </div>
+            
             {results.length > 0 && (
-              <div className="bg-black/5 dark:bg-white/5 px-4 py-2 border-t border-black/5 dark:border-white/5 text-[11px] text-ink-mute font-mono text-center">
-                Appuyez sur Entrée pour naviguer
+              <div className="bg-black/5 dark:bg-white/5 px-4 py-2 border-t border-black/5 dark:border-white/5 text-[11px] text-ink-mute flex items-center justify-between">
+                <span className="flex items-center gap-1"><Command size={10}/> Naviguer</span>
+                <span className="flex items-center gap-1"><span className="font-mono bg-surface/50 border border-line px-1 rounded">↵</span> Ouvrir</span>
               </div>
             )}
           </div>
