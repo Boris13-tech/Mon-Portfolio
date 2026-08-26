@@ -71,6 +71,15 @@ export default async function FormationPage({ params }: { params: { slug: string
             eyebrow="Formation & Expertise" 
             title={formation.title} 
           />
+          {formation.tags && formation.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-2">
+              {formation.tags.map((tag: string) => (
+                <span key={tag} className="text-xs px-3 py-1 rounded-full bg-surface/30 border border-line text-ink">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Image de couverture (optionnelle) */}
@@ -92,8 +101,26 @@ export default async function FormationPage({ params }: { params: { slug: string
           <div className="lg:col-span-2">
             
             {formation.description && (
-              <div className="prose prose-invert mb-16 text-ink-mute leading-relaxed text-[15px]">
+              <div className="prose prose-invert mb-10 text-ink-mute leading-relaxed text-[15px]">
                 <p>{formation.description}</p>
+              </div>
+            )}
+
+            {formation.objectives && (
+              <div className="mb-10">
+                <h3 className="text-lg font-display font-medium text-ink mb-4">Objectifs de la formation</h3>
+                <div className="panel p-6 rounded-2xl border border-line bg-surface/5 text-ink-mute text-sm leading-relaxed whitespace-pre-line">
+                  {formation.objectives}
+                </div>
+              </div>
+            )}
+
+            {formation.prerequisites && (
+              <div className="mb-12">
+                <h3 className="text-lg font-display font-medium text-ink mb-4">Prérequis</h3>
+                <div className="panel p-6 rounded-2xl border border-line bg-surface/5 text-ink-mute text-sm leading-relaxed whitespace-pre-line">
+                  {formation.prerequisites}
+                </div>
               </div>
             )}
 

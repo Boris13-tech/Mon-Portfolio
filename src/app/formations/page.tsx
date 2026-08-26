@@ -41,6 +41,22 @@ export default async function FormationsIndexPage() {
               
               <div className="p-6 flex flex-col flex-1">
                 <h2 className="text-xl font-display font-medium text-ink mb-2 group-hover:text-[#7cc4ff] transition-colors">{f.title}</h2>
+                
+                {f.tags && f.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {f.tags.slice(0, 3).map((tag: string) => (
+                      <span key={tag} className="text-[10px] font-mono tracking-wider uppercase px-2 py-0.5 rounded-md bg-surface/30 border border-line text-ink-mute">
+                        {tag}
+                      </span>
+                    ))}
+                    {f.tags.length > 3 && (
+                      <span className="text-[10px] font-mono tracking-wider uppercase px-2 py-0.5 rounded-md bg-surface/30 border border-line text-ink-mute">
+                        +{f.tags.length - 3}
+                      </span>
+                    )}
+                  </div>
+                )}
+
                 {f.description && (
                   <p className="text-sm text-ink-mute line-clamp-2 mb-6 flex-1">
                     {f.description}
